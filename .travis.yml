@@ -9,10 +9,10 @@ script:
   - docker run jlaws/react-test npm run test -- --coverage
 
 after_success:
-  - docker built -t jlaws/multi-client ./client
-  - docker built -t jlaws/multi-nginx ./nginx
-  - docker built -t jlaws/multi-server ./server  
-  - docker built -t jlaws/multi-worker ./worker
+  - docker build -t jlaws/multi-client ./client
+  - docker build -t jlaws/multi-nginx ./nginx
+  - docker build -t jlaws/multi-server ./server  
+  - docker build -t jlaws/multi-worker ./worker
   # Log in to docker hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push images to docker hun
