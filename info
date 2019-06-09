@@ -1,0 +1,22 @@
+How it hangs together.
+
+docker-compose.yml is for the development environment.
+each of the services will end up being a container.
+    * it either downloads an image from docker hub or builds one using the dockerfile and context you specify.
+    * volumes make it so you dont have to rebuild youre app every time you make a change in dev - like the watch attribute 
+
+
+In production - 
+
+You set up travis to listen to a repo in git.
+The travis.yml file then runs.
+
+It builds a test version of the client container and then runs the tests.
+If successful it builds each container and gives it a name - it knows to look for the Dockerfile  by default.
+
+Then it logs into docker hub using the environment variables set up in travis
+and pushes the images you just created to the hub.
+
+Then deployment to beanstalk happens.
+It uses the Dockerrun.aws.json file and packages it all up with an app name as long as the changes happened on github master branch.
+Each container is given a name and memory etc and pulls the image from the ones just pushed up to docker hub.
